@@ -1,22 +1,35 @@
-<html> 
-   <head> 
+<html>
+   <head>
       <meta charset="utf-8"/>
       <script src="wasm_exec.js"></script>
    </head>
    <body>
-      <script type="text/javascript"> 
+      <script type="text/javascript">
          const importObj = {
-            module: {} 
+            module: {}
          };
-         const go = new Go(); 
-         async function fetchAndInstantiate() { 
-            const response = await fetch("main.wasm"); 
-            const buffer = await response.arrayBuffer(); 
-            const obj = await WebAssembly.instantiate(buffer, go.importObject); 
-            console.log(obj); 
-            go.run(obj.instance); 
-         } 
-         fetchAndInstantiate(); 
+         const go = new Go();
+         async function fetchAndInstantiate() {
+            const response = await fetch("main.wasm");
+            const buffer = await response.arrayBuffer();
+            const obj = await WebAssembly.instantiate(buffer, go.importObject);
+            console.log(obj);
+            go.run(obj.instance);
+         }
+         fetchAndInstantiate();
+
+         function makeOutputRun() {
+		 document.getElementById('output').innerHTML = output
+	 }
       </script>
+
+      <form >
+	      <textarea id="koko" name="koko" rows="30" cols="80">// Try write some Koko...</textarea>
+      </form>
+      <button onclick="executeProgram(document.getElementById('koko').value); makeOutputRun()">Go koko nuts!</button>
+      <br/>
+      <br/>
+      Koko's nutty output:
+      <div id="output"></div>
    </body>
 </html>
