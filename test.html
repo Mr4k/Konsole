@@ -1,0 +1,22 @@
+<html> 
+   <head> 
+      <meta charset="utf-8"/>
+      <script src="wasm_exec.js"></script>
+   </head>
+   <body>
+      <script type="text/javascript"> 
+         const importObj = {
+            module: {} 
+         };
+         const go = new Go(); 
+         async function fetchAndInstantiate() { 
+            const response = await fetch("main.wasm"); 
+            const buffer = await response.arrayBuffer(); 
+            const obj = await WebAssembly.instantiate(buffer, go.importObject); 
+            console.log(obj); 
+            go.run(obj.instance); 
+         } 
+         fetchAndInstantiate(); 
+      </script>
+   </body>
+</html>
