@@ -5,14 +5,22 @@
    </head>
    <body>
       <form >
-	      <textarea id="koko" name="koko" rows="30" cols="80"></textarea>
+	      <textarea id="koko" name="koko" style="width:60%; height: 60%;"></textarea>
       </form>
       <button onclick="makeOutputRun()">Go koko nuts!</button>
       <br/>
       <br/>
       Koko's nutty output:
-      <div id="output"></div>
-
+      <div id="output" style="font-family: Courier New;background-color: black; color: antiquewhite;width: 60%;"> &nbsp; </div>
+      <br>
+      <div style="width:60%">
+         <b>What is Koko?</b> </br><a href="https://github.com/jemmaissroff/koko">Koko</a> is a toy programming language developed
+         by <a href="https://jemma.dev/">Jemma Issroff</a> during the Fall 2 Batch of the <a href="https://www.recurse.com/">Recurse Center</a>.
+         <a href="https://www.peterstefek.me/">Peter Stefek</a>  also added a few features later on in development.
+         Koko is based off of the <a href="https://monkeylang.org/">Monkey Programming Language</a>.
+         All Monkey programs are valid Koko. This language is still in development and there are likely undiscovered bugs. If you find one
+         feel free to file a <a href="https://github.com/jemmaissroff/koko/issues">github issue</a>!
+      </div>
       <script type="text/javascript">
          const queryString = window.location.search;
          const urlParams = new URLSearchParams(queryString);
