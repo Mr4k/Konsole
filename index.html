@@ -4,7 +4,21 @@
       <script src="wasm_exec.js"></script>
    </head>
    <body>
+      <form >
+	      <textarea id="koko" name="koko" rows="30" cols="80"></textarea>
+      </form>
+      <button onclick="makeOutputRun()">Go koko nuts!</button>
+      <br/>
+      <br/>
+      Koko's nutty output:
+      <div id="output"></div>
+
       <script type="text/javascript">
+         const queryString = window.location.search;
+         const urlParams = new URLSearchParams(queryString);
+         const program = urlParams.get('program') || '// Try write some Koko...';
+         document.getElementById('koko').innerHTML = program
+
          const importObj = {
             module: {}
          };
@@ -19,17 +33,11 @@
          fetchAndInstantiate();
 
          function makeOutputRun() {
-		 document.getElementById('output').innerHTML = output
-	 }
+            newAddress = encodeURIComponent(document.getElementById('koko').value);
+            window.history.pushState("", "konsole", "?program=" + newAddress);
+            executeProgram(document.getElementById('koko').value);
+            document.getElementById('output').innerHTML = output
+         }
       </script>
-
-      <form >
-	      <textarea id="koko" name="koko" rows="30" cols="80">// Try write some Koko...</textarea>
-      </form>
-      <button onclick="executeProgram(document.getElementById('koko').value); makeOutputRun()">Go koko nuts!</button>
-      <br/>
-      <br/>
-      Koko's nutty output:
-      <div id="output"></div>
    </body>
 </html>
