@@ -1,6 +1,7 @@
 <html>
    <head>
       <meta charset="utf-8"/>
+      <link rel="stylesheet" href="style.css">
       <script src="wasm_exec.js"></script>
       <script src="https://unpkg.com/@hpcc-js/wasm/dist/index.min.js"></script>
       <script>
@@ -9,26 +10,26 @@
    </head>
    <body>
       <form >
-	      <textarea id="koko" name="koko" style="width:60%; height: 60%;"></textarea>
+	      <textarea id="koko" name="koko"></textarea>
       </form>
-      <button onclick="makeOutputRun()">Go koko nuts!</button>
+      <button onclick="makeOutputRun()">Run koko!</button>
       <br/>
       <br/>
       Koko's nutty output:
-      <div id="output" style="font-family: Courier New;background-color: black; color: antiquewhite;width: 60%;"> &nbsp; </div>
+      <div id="output" style="font-family: Courier New;background-color: black; color: antiquewhite;"> &nbsp; </div>
       <br>
-      <div style="width:60%">
+      <div>
          <b>What is Koko?</b> </br><a href="https://github.com/jemmaissroff/koko">Koko</a> is a toy programming language developed
          by <a href="https://jemma.dev/">Jemma Issroff</a> during the Fall 2 Batch of the <a href="https://www.recurse.com/">Recurse Center</a>.
          <a href="https://www.peterstefek.me/">Peter Stefek</a>  also added a few features later on in development.
          Koko is based off of the <a href="https://monkeylang.org/">Monkey Programming Language</a>.
-         All Monkey programs are valid Koko. This language is still in development and there are likely undiscovered bugs. If you find one
+         All Monkey programs are valid Koko. This language is still in development and there sharp corners, a few bugs we do know about and likely many we don't. If you find one
          feel free to file a <a href="https://github.com/jemmaissroff/koko/issues">github issue</a>!
       </div>
       <script type="text/javascript">
          const queryString = window.location.search;
          const urlParams = new URLSearchParams(queryString);
-         const program = urlParams.get('program') || '// Try write some Koko...';
+         const program = urlParams.get('program') || '// Try to write some Koko...';
          document.getElementById('koko').innerHTML = program
 
          const importObj = {
@@ -51,7 +52,7 @@
             if (output.startsWith("digraph G")) {
                 // Asynchronous call to layout
                hpccWasm.graphviz.layout(output, "svg", "dot").then(svg => {
-                  const div = document.getElementById("output");
+                  let div = document.getElementById("output");
                   div.innerHTML = svg;
                });
             } else {
