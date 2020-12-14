@@ -2,6 +2,10 @@
    <head>
       <meta charset="utf-8"/>
       <script src="wasm_exec.js"></script>
+      <script src="https://unpkg.com/@hpcc-js/wasm/dist/index.min.js"></script>
+      <script>
+         var hpccWasm = window["@hpcc-js/wasm"];
+      </script>
    </head>
    <body>
       <form >
@@ -44,7 +48,15 @@
             newAddress = encodeURIComponent(document.getElementById('koko').value);
             window.history.pushState("", "konsole", "?program=" + newAddress);
             executeProgram(document.getElementById('koko').value);
-            document.getElementById('output').innerHTML = output
+            if (output.startsWith("digraph G")) {
+                // Asynchronous call to layout
+               hpccWasm.graphviz.layout(output, "svg", "dot").then(svg => {
+                  const div = document.getElementById("output");
+                  div.innerHTML = svg;
+               });
+            } else {
+               document.getElementById('output').innerHTML = output
+            }
          }
       </script>
    </body>
